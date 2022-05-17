@@ -821,11 +821,11 @@ class MerchantModel{
                     let new_time_1 = new Date(provider_one.registered_at).valueOf()
                     let new_time_2 = new Date(provider_two.registered_at).valueOf()
                     
-                    if(new_time_1 > new_time_2)
+                    if(new_time_1 < new_time_2)
                     {
                         return 1
                     }
-                    if(new_time_1 < new_time_2)
+                    if(new_time_1 > new_time_2)
                     {
                         return -1
                     }
