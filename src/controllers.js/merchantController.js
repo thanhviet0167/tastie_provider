@@ -316,6 +316,168 @@ class MerchantController{
         }
     }
 
+    static addDiscount = async (req, res) => {
+        try {
+            
+            const status = await MerchantModel.addDiscount(req.body)
+           
+            res.status(200).json({
+                status
+            })
+
+        } catch (error) {
+            console.log(error)
+            res.status(404).json({
+                status : false
+            })
+        }
+    }
+
+    static updateDiscount = async (req, res) => {
+        try {
+            
+            const status = await MerchantModel.updateDiscount(req.body)
+           
+            res.status(200).json({
+                status
+            })
+
+        } catch (error) {
+            console.log(error)
+            res.status(404).json({
+                status : false
+            })
+        }
+    }
+
+    static getAllDiscount = async (req, res) => {
+        try {
+            const provider_id = req.params.provider_id
+            const list_discount = await MerchantModel.getAllDiscount(provider_id)
+           
+            res.status(200).json({
+                status : true,
+                list_discount
+            })
+
+        } catch (error) {
+            console.log(error)
+            res.status(404).json({
+                status : false,
+                list_discount : []
+            })
+        }
+    }
+
+    static applyDiscountToProduct = async (req, res) => {
+        try {
+            
+            const status = await MerchantModel.applyDiscountToProduct(req.body)
+           
+            res.status(200).json({
+                status
+            })
+
+        } catch (error) {
+            console.log(error)
+            res.status(404).json({
+                status : false
+            })
+        }
+    }
+    static removeDiscountToProduct = async (req, res) => {
+        try {
+            const product_id = req.params.product_id
+            const status = await MerchantModel.removeDiscountToProduct(product_id)
+           
+            res.status(200).json({
+                status
+            })
+
+        } catch (error) {
+            console.log(error)
+            res.status(404).json({
+                status : false
+            })
+        }
+    }
+
+    static getProviderRevenueByTime = async (req, res) => {
+        try {
+          
+            const total_revenue = await MerchantModel.getProviderRevenueByTime(req.body)
+           
+            res.status(200).json({
+                status : true,
+                total_revenue
+            })
+
+        } catch (error) {
+            console.log(error)
+            res.status(404).json({
+                status : false,
+                total_revenue : -1
+            })
+        }
+    }
+
+
+    static getProviderNumberOrderByTime = async (req, res) => {
+        try {
+          
+            const number_order = await MerchantModel.getProviderNumberOrderByTime(req.body)
+           
+            res.status(200).json({
+                status : true,
+                number_order
+            })
+
+        } catch (error) {
+            console.log(error)
+            res.status(404).json({
+                status : false,
+                number_order : -1
+            })
+        }
+    }
+
+    static getTopProductByUnitByProvider = async (req, res) => {
+        try {
+          
+            const list_product = await MerchantModel.getTopProductByUnitByProvider(req.body)
+           
+            res.status(200).json({
+                status : true,
+                list_product
+            })
+
+        } catch (error) {
+            console.log(error)
+            res.status(404).json({
+                status : false,
+                list_product : []
+            })
+        }
+    }
+
+    static getTopProductBySalesByProvider = async (req, res) => {
+        try {
+          
+            const list_product = await MerchantModel.getTopProductBySalesByProvider(req.body)
+           
+            res.status(200).json({
+                status : true,
+                list_product
+            })
+
+        } catch (error) {
+            console.log(error)
+            res.status(404).json({
+                status : false,
+                list_product : []
+            })
+        }
+    }
 }
 
 

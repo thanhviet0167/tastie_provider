@@ -29,6 +29,18 @@ const url_update_promotion = '/v1/api/tastie/provider/update-promotion'
 const url_get_all_order = '/v1/api/provider/order/get-all-order'
 const url_get_order_detail = '/v1/api/provider/order/get-all-products-from-order/:order_code'
 
+const add_discount = '/v1/api/provider/dashboard/add-discount'
+const update_discount = '/v1/api/provider/dashboard/update-discount'
+const get_all_discount = '/v1/api/provider/dashboard/get-all-discount/:provider_id'
+
+const apply_discount_to_product = '/v1/api/provider/dashboard/apply-discount-to-product'
+const remove_discount_to_product = '/v1/api/provider/dashboard/remove-discount-to-product/:product_id'
+
+const get_provider_revenue_by_time = '/v1/api/provider/dashboard/get-provider-revenue-by-time'
+const get_provider_number_order_by_time = '/v1/api/provider/dashboard/get-provider-number-order-by-time'
+const get_top_product_by_unit_by_provider = '/v1/api/provider/dashboard/get-top-product-by-unit-by-provider'
+const get_top_product_by_sales_by_provider = '/v1/api/provider/dashboard/get-top-product-by-sales-by-provider'
+
 module.exports = {
     url_merchant_register,
     url_provider_update_form1,
@@ -53,5 +65,14 @@ module.exports = {
     url_update_promotion,
     url_get_all_order,
     url_get_order_detail,
-    url_register_ecoupon
+    url_register_ecoupon,
+    add_discount,
+    update_discount,
+    get_all_discount,
+    apply_discount_to_product,
+    remove_discount_to_product,
+    get_provider_revenue_by_time,
+    get_provider_number_order_by_time,
+    get_top_product_by_unit_by_provider,
+    get_top_product_by_sales_by_provider
 }

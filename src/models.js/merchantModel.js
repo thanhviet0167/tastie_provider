@@ -1018,6 +1018,129 @@ class MerchantModel{
         }
     }
 
+
+    //
+
+    static async addDiscount(data){
+        try {
+            const {provider_id, discount_value, discount_description, start_at, expire_at} = data
+            await host.execute(`CALL Add_Discount(${provider_id}, ${discount_value}, '${discount_description}', '${start_at}', '${expire_at}');`)
+            return true
+        } catch (error) {
+            
+            console.log(error)
+            return false
+        }
+    }
+
+    static async updateDiscount(data){
+        try {
+            const {discount_id, provider_id, discount_value, discount_description, start_at, expire_at} = data
+            await host.execute(`CALL Update_Discount(${discount_id}, ${provider_id}, ${discount_value}, '${discount_description}', '${start_at}', '${expire_at}');`)
+            return true
+        } catch (error) {
+            
+            console.log(error)
+            return false
+        }
+    }
+
+    static async getAllDiscount(provider_id){
+        try {
+            const [list_discount, _] = await host.execute(`CALL Get_All_Discounts(${provider_id});`)
+            return list_discount[0]
+        } catch (error) {
+            console.log(error)
+            return []
+        }
+    }
+
+    static async applyDiscountToProduct(data){
+        try {
+            const {product_id, discount_id} = data
+            await host.execute(`CALL Apply_Discount_To_Product(${product_id}, ${discount_id});`)
+
+            return true
+        } catch (error) {
+            
+            console.log(error)
+            return false
+        }
+    }
+
+    static async removeDiscountToProduct(product_id){
+        try {
+            
+            await host.execute(`CALL Remove_Discount_From_Product(${product_id});`)
+
+            return true
+        } catch (error) {
+            
+            console.log(error)
+            return false
+        }
+    }
+
+    static async getProviderRevenueByTime(data){
+        try {
+            var {provider_id, start_month, end_month, year} = data
+            start_month = start_month < end_month ? start_month : end_month
+            end_month = end_month > start_month ? end_month : start_month
+            const [total_revenue, _] = await host.execute(`CALL Get_Provider_Revenue_By_Time(${provider_id}, ${start_month}, ${end_month}, ${year});`)
+           
+            return total_revenue[0][0]['total_revenue']
+        } catch (error) {
+            console.log(error)
+            return -1
+        }
+    }
+
+
+    static async getProviderNumberOrderByTime(data){
+        try {
+            var {provider_id, start_month, end_month, year} = data
+            start_month = start_month < end_month ? start_month : end_month
+            end_month = end_month > start_month ? end_month : start_month
+            const [total_num_orders, _] = await host.execute(`CALL Get_Provider_Num_Orders_By_Time(${provider_id}, ${start_month}, ${end_month}, ${year});`)
+
+            return total_num_orders[0][0]['total_num_orders']
+        } catch (error) {
+            console.log(error)
+            return -1
+        }
+    }
+
+    static async getTopProductByUnitByProvider(data){
+        try {
+            var {provider_id, start_month, end_month, year} = data
+            start_month = start_month < end_month ? start_month : end_month
+            end_month = end_month > start_month ? end_month : start_month
+            const [list_product, _] = await host.execute(`CALL Get_Top_Product_By_Unit_By_Provider(${provider_id}, ${start_month}, ${end_month}, ${year});`)
+
+            return list_product[0]
+        } catch (error) {
+            console.log(error)
+            return -1
+        }
+    }
+
+    static async getTopProductBySalesByProvider(data){
+        try {
+            var {provider_id, start_month, end_month, year} = data
+            start_month = start_month < end_month ? start_month : end_month
+            end_month = end_month > start_month ? end_month : start_month
+            const [list_product, _] = await host.execute(`CALL Get_Top_Product_By_Sales_By_Provider(${provider_id}, ${start_month}, ${end_month}, ${year});`)
+
+            return list_product[0]
+        } catch (error) {
+            console.log(error)
+            return -1
+        }
+    }
+
+  
+
+
 }
 
 

@@ -15,6 +15,8 @@ const productRouter = (app) => {
     app.post(url_provider_add_menu_category, ProductController.addMenuCategory)
     app.post(url_provider_add_product_into_menu_category, ProductController.addProductIntoMenuCategory)
     app.post(url_provider_product_update_status, ProductController.updateProductStatus)
+
+    
 }
 
 

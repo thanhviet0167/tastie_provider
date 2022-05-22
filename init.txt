@@ -355,3 +355,65 @@ INSERT INTO `Product` (`product_id`,`provider_id`,`product_name`,`product_status
     "ecoupon_id": 1,
     "provider_id" : 1000003
 }
+
+// localhost:3008/v1/api/provider/dashboard/add-discount
+{
+    "provider_id": 1000005,
+    "discount_value" : 0.15,
+    "discount_description": "discount to summer",
+    "start_at" : "2022-06-05",
+    "expire_at" : "2022-08-05"
+}
+
+// localhost:3008/v1/api/provider/dashboard/update-discount
+{
+    "discount_id" : 2,
+    "provider_id": 1000005,
+    "discount_value" : 0.25,
+    "discount_description": "discount hot to summer",
+    "start_at" : "2022-06-05",
+    "expire_at" : "2022-08-05"
+}
+
+// localhost:3008/v1/api/provider/dashboard/get-all-discount/1000005
+
+
+// localhost:3008/v1/api/provider/dashboard/apply-discount-to-product
+{
+    "discount_id" : 2,
+    "product_id": 1000005
+}
+
+// localhost:3008/v1/api/provider/dashboard/remove-discount-to-product/1000005 : PUT
+
+// localhost:3008/v1/api/provider/dashboard/get-provider-revenue-by-time
+{
+    "provider_id": 1000018,
+    "start_month" : 1,
+    "end_month" : 6,
+    "year" : 2022
+}
+// localhost:3008/v1/api/provider/dashboard/get-provider-number-order-by-time
+{
+    "provider_id": 1000018,
+    "start_month" : 1,
+    "end_month" : 6,
+    "year" : 2022
+}
+
+// localhost:3008/v1/api/provider/dashboard/get-top-product-by-unit-by-provider
+{
+    "provider_id": 1000018,
+    "start_month" : 1,
+    "end_month" : 6,
+    "year" : 2022
+}
+
+
+// localhost:3008/v1/api/provider/dashboard/get-top-product-by-sales-by-provider
+{
+    "provider_id": 1000018,
+    "start_month" : 1,
+    "end_month" : 6,
+    "year" : 2022
+}
