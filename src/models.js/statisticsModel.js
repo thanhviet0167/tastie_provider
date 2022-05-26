@@ -73,11 +73,9 @@ class StatisticsModel{
         try {
             const list_promos = await host.execute(`CALL Get_All_Promos(${provider_id})`)
             const list_discount = await host.execute(`CALL Get_All_Discounts(${provider_id});`)
-            const list_ecoupon = await host.execute(`CALL Get_All_Discounts(${provider_id});`)
             return {
                 promotion : list_promos[0][0],
-                discount : list_discount[0][0],
-                ecoupon : list_ecoupon[0][0]
+                discount : list_discount[0][0]
             }
 
         } catch (error) {
@@ -86,6 +84,14 @@ class StatisticsModel{
         }
     }
 
+    static async getAllEcoupon(provider_id){
+        try {
+            const list_ecoupon = await host.execute(`CALL Get_All_Discounts(${provider_id});`)
+            return list_ecoupon[0][0]
+        } catch (error) {
+            return []
+        }
+    }
 
 }
 

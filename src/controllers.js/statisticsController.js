@@ -83,6 +83,21 @@ class StatisticsController {
         }
     }
 
+    static  getAllEcoupon = async (req, res) => {
+        try {
+            const provider_id = req.params.provider_id
+            const response = await StatisticsModel.getAllEcoupon(provider_id)
+            res.status(200).json({
+                status : true,
+                response
+            })
+        } catch (error) {
+            res.status(404).json({
+                status : false,
+                response : []
+            })
+        }
+    }
 }
 
 

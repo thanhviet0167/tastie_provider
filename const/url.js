@@ -49,6 +49,7 @@ const url_get_number_order_by_provider = '/v1/api/provider/dashboard/get-number-
 const url_get_number_order_inclu_voucher_by_provider = '/v1/api/provider/dashboard/get-nb-order-inclu-voucher-by-provider/:provider_id'
 
 const url_get_all_promos = '/v1/api/provider/dashboard/get-all-promos/:provider_id'
+const url_get_all_ecoupon = '/v1/api/provider/dashboard/get-all-ecoupon/:provider_id'
 
 module.exports = {
     url_merchant_register,
@@ -88,5 +89,6 @@ module.exports = {
     url_get_voucher_costs,
     url_get_number_order_by_provider,
     url_get_number_order_inclu_voucher_by_provider,
-    url_get_all_promos
+    url_get_all_promos,
+    url_get_all_ecoupon
 }
