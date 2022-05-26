@@ -359,6 +359,7 @@ INSERT INTO `Product` (`product_id`,`provider_id`,`product_name`,`product_status
 // localhost:3008/v1/api/provider/dashboard/add-discount
 {
     "provider_id": 1000005,
+    "discount_name" : "summer",
     "discount_value" : 0.15,
     "discount_description": "discount to summer",
     "start_at" : "2022-06-05",
@@ -369,6 +370,7 @@ INSERT INTO `Product` (`product_id`,`provider_id`,`product_name`,`product_status
 {
     "discount_id" : 2,
     "provider_id": 1000005,
+    "discount_name" : "summer",
     "discount_value" : 0.25,
     "discount_description": "discount hot to summer",
     "start_at" : "2022-06-05",
@@ -417,3 +419,13 @@ INSERT INTO `Product` (`product_id`,`provider_id`,`product_name`,`product_status
     "end_month" : 6,
     "year" : 2022
 }
+
+
+// http://localhost:3008/v1/api/provider/dashboard/get-voucher-claims/1000106
+
+
+// http://localhost:3008/v1/api/provider/dashboard/get-number-order-by-provider/1000036
+
+// http://localhost:3008/v1/api/provider/dashboard/get-voucher-costs/1000036
+
+// http://:3008/v1/api/provider/dashboard/get-all-promos/1000000

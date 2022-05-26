@@ -927,6 +927,8 @@ class MerchantModel{
                 const [result, _] = await host.execute(sqlGetAllOrder)
 
                 const _list_order = result[0]
+                console.log(_list_order.length)
+                _list_order.reverse()
 
                 return _list_order.slice( offset - 1  === 0 ? offset-1 : limit*(offset-1), offset*limit <= _list_order.length ? offset*limit : offset*limit-1)
 
@@ -1023,8 +1025,8 @@ class MerchantModel{
 
     static async addDiscount(data){
         try {
-            const {provider_id, discount_value, discount_description, start_at, expire_at} = data
-            await host.execute(`CALL Add_Discount(${provider_id}, ${discount_value}, '${discount_description}', '${start_at}', '${expire_at}');`)
+            const {provider_id, discount_name, discount_value, discount_description, start_at, expire_at} = data
+            await host.execute(`CALL Add_Discount(${provider_id}, '${discount_name}',${discount_value}, '${discount_description}', '${start_at}', '${expire_at}');`)
             return true
         } catch (error) {
             
@@ -1035,8 +1037,8 @@ class MerchantModel{
 
     static async updateDiscount(data){
         try {
-            const {discount_id, provider_id, discount_value, discount_description, start_at, expire_at} = data
-            await host.execute(`CALL Update_Discount(${discount_id}, ${provider_id}, ${discount_value}, '${discount_description}', '${start_at}', '${expire_at}');`)
+            const {discount_id, provider_id, discount_name, discount_value, discount_description, start_at, expire_at} = data
+            await host.execute(`CALL Update_Discount(${discount_id}, ${provider_id}, '${discount_name}', ${discount_value}, '${discount_description}', '${start_at}', '${expire_at}');`)
             return true
         } catch (error) {
             

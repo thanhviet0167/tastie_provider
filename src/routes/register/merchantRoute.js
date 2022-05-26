@@ -16,6 +16,7 @@ const merchantRouter = (app) => {
     app.post(url_provider_update_form5, MerchantController.providerUpdateForm5)
     app.get(url_provider_get_info, MerchantController.getProviderInfo)
     app.post(url_provider_update_provider, MerchantController.updateProvider)
+
   
 }
 

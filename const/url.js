@@ -36,10 +36,19 @@ const get_all_discount = '/v1/api/provider/dashboard/get-all-discount/:provider_
 const apply_discount_to_product = '/v1/api/provider/dashboard/apply-discount-to-product'
 const remove_discount_to_product = '/v1/api/provider/dashboard/remove-discount-to-product/:product_id'
 
+// statistics
+
 const get_provider_revenue_by_time = '/v1/api/provider/dashboard/get-provider-revenue-by-time'
 const get_provider_number_order_by_time = '/v1/api/provider/dashboard/get-provider-number-order-by-time'
 const get_top_product_by_unit_by_provider = '/v1/api/provider/dashboard/get-top-product-by-unit-by-provider'
 const get_top_product_by_sales_by_provider = '/v1/api/provider/dashboard/get-top-product-by-sales-by-provider'
+
+const url_get_voucher_claims = '/v1/api/provider/dashboard/get-voucher-claims/:provider_id'
+const url_get_voucher_costs = '/v1/api/provider/dashboard/get-voucher-costs/:provider_id'
+const url_get_number_order_by_provider = '/v1/api/provider/dashboard/get-number-order-by-provider/:provider_id'
+const url_get_number_order_inclu_voucher_by_provider = '/v1/api/provider/dashboard/get-nb-order-inclu-voucher-by-provider/:provider_id'
+
+const url_get_all_promos = '/v1/api/provider/dashboard/get-all-promos/:provider_id'
 
 module.exports = {
     url_merchant_register,
@@ -74,5 +83,10 @@ module.exports = {
     get_provider_revenue_by_time,
     get_provider_number_order_by_time,
     get_top_product_by_unit_by_provider,
-    get_top_product_by_sales_by_provider
+    get_top_product_by_sales_by_provider,
+    url_get_voucher_claims,
+    url_get_voucher_costs,
+    url_get_number_order_by_provider,
+    url_get_number_order_inclu_voucher_by_provider,
+    url_get_all_promos
 }
