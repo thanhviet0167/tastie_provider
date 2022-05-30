@@ -430,4 +430,4 @@ INSERT INTO `Product` (`product_id`,`provider_id`,`product_name`,`product_status
 
 // http://:3008/v1/api/provider/dashboard/get-all-promos/1000000
 
-// http://:3008/v1/api/provider/dashboard/get-all-ecoupon/1000000
+// http://:3008/v1/api/provider/dashboard/get-all-ecoupon/1000001

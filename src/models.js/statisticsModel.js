@@ -86,9 +86,22 @@ class StatisticsModel{
 
     static async getAllEcoupon(provider_id){
         try {
-            const list_ecoupon = await host.execute(`CALL Get_All_Discounts(${provider_id});`)
-            return list_ecoupon[0][0]
+            const list_ecoupon_registered = await host.execute(`CALL Get_All_Ecoupon(${provider_id});`)
+        //    console.log(list_ecoupon_registered[0][0])
+            const _list_ecoupon = await host.execute('SELECT * FROM Tastie.Ecoupon')
+
+            const list_ecoupon = _list_ecoupon[0].filter(ecoupon => {
+                return list_ecoupon_registered[0][0].findIndex(ecp => {
+                    return ecp['ecoupon_id'] === ecoupon['ecoupon_id']
+                }) < 0
+            })
+
+            return {
+                ecoupon_registered : list_ecoupon_registered[0][0],
+                ecoupon : list_ecoupon
+            }
         } catch (error) {
+            console.log(error)
             return []
         }
     }
