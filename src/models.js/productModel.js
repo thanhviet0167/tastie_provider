@@ -1,7 +1,5 @@
-
-
 const host = require('../../config/connectMySQL')
-
+const moment = require('moment')
 
 
 
@@ -390,11 +388,16 @@ class ProductModel{
         }
     }
 
+    static getUpdateAt(){
+        return moment(new Date().toLocaleDateString('vi-VI'), 'DD-MM-YYYY').format('YYYY-MM-DD') + ' ' + new Date().toLocaleTimeString('vi-VI')
+    }
     //Done
     static async updateUpComingProduct(data){
         try {
-            const {upcoming_product_id, provider_id, product_name, product_description, estimated_price, product_image, update_at} = data
-            let sqlUpdateUpComingProduct = `CALL Add_Upcoming_Product(${upcoming_product_id}, ${provider_id}, '${product_name}', '${product_description}', ${estimated_price}, '${product_image}', '${update_at}');`
+            
+            const {upcoming_product_id, provider_id, product_name, product_description, estimated_price, product_image} = data
+            const update_at = this.getUpdateAt()
+            let sqlUpdateUpComingProduct = `CALL Update_Upcoming_Product(${upcoming_product_id}, ${provider_id}, '${product_name}', '${product_description}', ${estimated_price}, '${product_image}', '${update_at}');`
             await host.execute(sqlUpdateUpComingProduct)
             return true
         } catch (error) {

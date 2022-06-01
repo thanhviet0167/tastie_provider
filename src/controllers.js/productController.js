@@ -180,6 +180,36 @@ class ProductController{
     }
 
 
+
+    static addUpComingProduct = async (req, res) => {
+        try {
+           
+            const status = await ProductModel.addUpComingProduct(req.body)
+            res.status(200).json({
+                status
+            })
+        } catch (error) {
+            console.log(error)
+            res.status(404).json({
+                status : false
+            })
+        }
+    }
+
+    static updateUpComingProduct = async (req, res) => {
+        try {
+           
+            const status = await ProductModel.updateUpComingProduct(req.body)
+            res.status(200).json({
+                status
+            })
+        } catch (error) {
+            console.log(error)
+            res.status(404).json({
+                status : false
+            })
+        }
+    }
 }
 
 

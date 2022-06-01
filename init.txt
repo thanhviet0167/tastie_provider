@@ -431,3 +431,22 @@ INSERT INTO `Product` (`product_id`,`provider_id`,`product_name`,`product_status
 // http://:3008/v1/api/provider/dashboard/get-all-promos/1000000
 
 // http://:3008/v1/api/provider/dashboard/get-all-ecoupon/1000001
+
+// http://:3008/v1/api/provider/dashboard/add-up-coming-product
+{
+    "provider_id" : 1000030,
+    "product_name" : "po-po lemon",
+    "product_description" : "lemon",
+    "estimated_price" : 12,
+    "product_image" : "hello"
+}
+
+// http://:3008/v1/api/provider/dashboard/update-up-coming-product
+{
+    "upcoming_product_id" : 1,
+    "provider_id" : 1000030,
+    "product_name" : "po-po lemon",
+    "product_description" : "lemon",
+    "estimated_price" : 123,
+    "product_image" : "Lemon"
+}
