@@ -254,8 +254,9 @@ INSERT INTO `Product` (`product_id`,`provider_id`,`product_name`,`product_status
 INSERT INTO `Product` (`product_id`,`provider_id`,`product_name`,`product_status`,`description`,`price`,`quantity`,`sold_quantity`,`position`,`rating`,`create_at`,`update_at`,`delete_at`) VALUES (1000005,1000001,'kẹo',6,NULL,500,11,12,NULL,NULL,NOW(),NOW(),NULL);
 
 
-// localhost:3008/v1/api/provider/dashboard/menu-overview/1000001/add-menu-category : POST
+// localhost:3008/v1/api/provider/dashboard/menu-overview/add-menu-category : POST
 {
+  "provider_id" : 1000001,
     "menu_name" : "abc def ghi"
 }
 

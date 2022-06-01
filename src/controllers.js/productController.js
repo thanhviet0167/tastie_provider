@@ -132,8 +132,7 @@ class ProductController{
 
     static addMenuCategory = async (req, res) => {
         try {
-            const provider_id = req.params.id
-            const {menu_name} = req.body
+            const {provider_id, menu_name} = req.body
             const status = await ProductModel.addMenuCategory(provider_id, menu_name)
             res.status(200).json({
                 status
