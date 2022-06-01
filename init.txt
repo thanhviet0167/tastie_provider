@@ -452,3 +452,11 @@ INSERT INTO `Product` (`product_id`,`provider_id`,`product_name`,`product_status
 }
 
 // http://:3008/v1/api/provider/dashboard/get-up-coming-product/1000030
+
+// localhost:3008/v1/api/provider/dashboard/get-top-category-by-unit-by-provider
+{
+    "provider_id": 1000018,
+    "start_month" : 1,
+    "end_month" : 6,
+    "year" : 2022
+}

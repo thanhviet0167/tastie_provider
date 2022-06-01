@@ -106,6 +106,16 @@ class StatisticsModel{
         }
     }
 
+    static async getTopCategoryByUnitByProvider(data){
+        try {
+            const {provider_id, start_month, end_month, year} = data
+            const [result, _] =  await host.execute(`CALL Get_Top_Category_By_Unit_By_Provider(${provider_id}, ${start_month}, ${end_month}, ${year});`)
+            return result[0]
+        } catch (error) {
+            return -1
+        }
+    }
+
 }
 
 
