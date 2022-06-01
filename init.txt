@@ -450,3 +450,5 @@ INSERT INTO `Product` (`product_id`,`provider_id`,`product_name`,`product_status
     "estimated_price" : 123,
     "product_image" : "Lemon"
 }
+
+// http://:3008/v1/api/provider/dashboard/get-up-coming-product/1000030

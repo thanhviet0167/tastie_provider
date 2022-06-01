@@ -1,4 +1,4 @@
-const { url_provider_product_add, url_provider_get_menu_items, url_provider_product_update, url_provider_product_getlist, url_provider_product_remove, url_provider_add_menu_category, url_provider_add_product_into_menu_category, url_provider_product_update_status, url_add_upcoming_product, url_update_upcoming_product } = require("../../../const/url")
+const { url_provider_product_add, url_provider_get_menu_items, url_provider_product_update, url_provider_product_getlist, url_provider_product_remove, url_provider_add_menu_category, url_provider_add_product_into_menu_category, url_provider_product_update_status, url_add_upcoming_product, url_update_upcoming_product, url_get_upcoming_product } = require("../../../const/url")
 const ProductController = require("../../controllers.js/productController")
 
 
@@ -17,7 +17,7 @@ const productRouter = (app) => {
     app.post(url_provider_product_update_status, ProductController.updateProductStatus)
     app.post(url_add_upcoming_product, ProductController.addUpComingProduct)
     app.post(url_update_upcoming_product, ProductController.updateUpComingProduct)
-    
+    app.get(url_get_upcoming_product, ProductController.getUpComingProduct)
 }
 
 

@@ -434,6 +434,15 @@ class ProductModel{
         }
     }
 
+    static async getUpComingProduct(provider_id){
+        try {
+            const [list_upcoming_product, _] = await host.execute(`SELECT * FROM Tastie.UpcomingProduct WHERE provider_id = ${provider_id}`)
+            return list_upcoming_product
+        } catch (error) {
+            return []
+        }
+    }
+
 
   
 

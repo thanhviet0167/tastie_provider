@@ -210,6 +210,24 @@ class ProductController{
             })
         }
     }
+
+    static getUpComingProduct = async (req, res) => {
+        try {
+            const provider_id = req.params.provider_id
+           
+            const response = await ProductModel.getUpComingProduct(provider_id)
+            res.status(200).json({
+                status : true,
+                response
+            })
+        } catch (error) {
+            console.log(error)
+            res.status(404).json({
+                status : false,
+                response : []
+            })
+        }
+    }
 }
 
 

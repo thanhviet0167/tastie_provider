@@ -52,6 +52,7 @@ const url_get_all_promos = '/v1/api/provider/dashboard/get-all-promos/:provider_
 const url_get_all_ecoupon = '/v1/api/provider/dashboard/get-all-ecoupon/:provider_id'
 const url_add_upcoming_product = '/v1/api/provider/dashboard/add-up-coming-product'
 const url_update_upcoming_product = '/v1/api/provider/dashboard/update-up-coming-product'
+const url_get_upcoming_product = '/v1/api/provider/dashboard/get-up-coming-product/:provider_id'
 
 module.exports = {
     url_merchant_register,
@@ -94,5 +95,6 @@ module.exports = {
     url_get_all_promos,
     url_get_all_ecoupon,
     url_add_upcoming_product,
-    url_update_upcoming_product
+    url_update_upcoming_product,
+    url_get_upcoming_product
 }
