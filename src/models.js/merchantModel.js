@@ -675,18 +675,25 @@ class MerchantModel{
         }
     }
 
+
     // Done
     static async getGroupProvider(data){
         try {
             
-            const {group_provider_id, limit, offset, longitude, latitude} = data
+            const {user_id, group_provider_id, limit, offset, longitude, latitude} = data
             
+           if(!user_id){
+               user_id = -1
+           }
+
             let sqlGetProvider = `SELECT * FROM Tastie.Provider;`
             const [list_provider, _] = await host.execute(sqlGetProvider)
-
-            
+            const _list_provider_favorite = await host.execute(`CALL Get_Favorite_Restaurant_By_Customer(${user_id});`)
+            const list_provider_favorite = _list_provider_favorite[0][0]
 
             var response = []
+
+            
 
             for(var i = 0; i < list_provider.length; i++){
                 var distance = Geolib.getDistance({
@@ -711,6 +718,14 @@ class MerchantModel{
 
                     var operation_time = await this.getOperationsTime(list_provider[i]['provider_id'])
 
+                    console.log(operation_time)
+
+                    var index_favorite = list_provider_favorite.findIndex(p => {
+                        return p['provider_id'] === list_provider[i]['provider_id']
+                    })
+
+                   
+
                     var newData = {
                         distance,
                         delivery_fee,
@@ -727,7 +742,8 @@ class MerchantModel{
                         order_totals : list_provider[i]['order_totals'],
                         mean_estimated_cooking_time :(parseInt(convert_estimated[0]) + parseInt(convert_estimated[1])) / 2,
                         registered_at :  convert_time,
-                        operation_time
+                        operation_time,
+                        isFavorite : index_favorite > -1 ? true : false
                     
                     }
                     response.push(newData)
@@ -736,6 +752,8 @@ class MerchantModel{
 
                 
             }
+
+           
 
                 //group_provider_id = 1 :  order near u
                 if(group_provider_id === 1){

@@ -279,7 +279,7 @@ INSERT INTO `Product` (`product_id`,`provider_id`,`product_name`,`product_status
 // localhost:3008/v1/api/provider/dashboard/1000001/update-provider
 {
   "provider_status" : 1,
-   "day" : "Monday",
+   "day" : "1",
    "open_time" : "08:15:00",
    "close_time" : "20:30:00",
    "estimated_cooking_time" : "15-20 min",
@@ -288,6 +288,7 @@ INSERT INTO `Product` (`product_id`,`provider_id`,`product_name`,`product_status
 
 // localhost:3008/v1/api/provider/dashboard/home/get-group-provider : POST
 {
+    "user_id" :1000001 ,
     "group_provider_id": 7,
     "limit": 6,
     "offset": 1,
