@@ -266,8 +266,11 @@ INSERT INTO `Product` (`product_id`,`provider_id`,`product_name`,`product_status
     "product_id" : [1000003, 1000004, 1000005]
 }
 
-// http://localhost:3008/v1/api/provider/dashboard/1000001/get-info : GET
-
+// http://localhost:3008/v1/api/provider/dashboard/get-info : POST
+{
+  "user_id" : 1000001,
+  "provider_id" : 1000000
+}
 
 // http://localhost:3008/v1/api/provider/dashboard/menu-overview/1000001/update-product-status : POST
 {

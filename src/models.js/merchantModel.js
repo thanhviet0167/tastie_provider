@@ -356,15 +356,24 @@ class MerchantModel{
     }
 
     // Done
-    static async getProviderInfo(provider_id){
+    static async getProviderInfo(_data){
         try {
+            const {user_id, provider_id} = _data
             let sqlGetProviderInfo = `SELECT * FROM Tastie.Provider where provider_id = ${provider_id};`
             const [provider_info, _]  = await host.execute(sqlGetProviderInfo)
             const data = provider_info[0]
             const operation_time = await this.getOperationsTime(provider_id)
+
+            const _list_provider_favorite = await host.execute(`CALL Get_Favorite_Restaurant_By_Customer(${user_id});`)
+            const list_provider_favorite = _list_provider_favorite[0][0]
+
+            const index_favorite = list_provider_favorite.findIndex(p => {
+                return p['provider_id'] === data['provider_id']
+            })
             const response = {
                 data,
-                operation_time
+                operation_time,
+                isFavorite : index_favorite > -1 ? true : false
             }
             return response
         } catch (error) {
@@ -718,7 +727,7 @@ class MerchantModel{
 
                     var operation_time = await this.getOperationsTime(list_provider[i]['provider_id'])
 
-                    console.log(operation_time)
+                    
 
                     var index_favorite = list_provider_favorite.findIndex(p => {
                         return p['provider_id'] === list_provider[i]['provider_id']

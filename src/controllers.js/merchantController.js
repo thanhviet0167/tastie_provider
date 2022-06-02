@@ -148,8 +148,7 @@ class MerchantController{
 
     static getProviderInfo = async (req, res) => {
         try {
-            const provider_id = req.params.provider_id
-            const provider_info = await MerchantModel.getProviderInfo(provider_id)
+            const provider_info = await MerchantModel.getProviderInfo(req.body)
             if(provider_info)
             {
                 res.status(200).json({
