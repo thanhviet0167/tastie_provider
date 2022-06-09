@@ -711,7 +711,7 @@ class MerchantModel{
 
 
 
-                if(distance <= 15000){
+                if(distance <= 25000){
 
                     // Find maximum estimated_cooking_time
 

@@ -195,6 +195,39 @@ class ProductController{
         }
     }
 
+
+    static addSurveyQuestion = async (req, res) => {
+        try {
+           
+            const status = await ProductModel.addSurveyQuestion(req.body)
+            res.status(200).json({
+                status
+            })
+        } catch (error) {
+            console.log(error)
+            res.status(404).json({
+                status : false
+            })
+        }
+    }
+
+    static updateSurveyQuestion = async (req, res) => {
+        try {
+           
+            const status = await ProductModel.updateSurveyQuestion(req.body)
+            res.status(200).json({
+                status
+            })
+        } catch (error) {
+            console.log(error)
+            res.status(404).json({
+                status : false
+            })
+        }
+    }
+
+
+
     static updateUpComingProduct = async (req, res) => {
         try {
            

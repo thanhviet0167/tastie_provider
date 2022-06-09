@@ -33,6 +33,10 @@ const add_discount = '/v1/api/provider/dashboard/add-discount'
 const update_discount = '/v1/api/provider/dashboard/update-discount'
 const get_all_discount = '/v1/api/provider/dashboard/get-all-discount/:provider_id'
 
+const add_survey_question = '/v1/api/provider/dashboard/add-survey-question'
+const update_survey_question = '/v1/api/provider/dashboard/update-survey-question'
+
+
 const apply_discount_to_product = '/v1/api/provider/dashboard/apply-discount-to-product'
 const remove_discount_to_product = '/v1/api/provider/dashboard/remove-discount-to-product/:product_id'
 
@@ -98,5 +102,7 @@ module.exports = {
     url_add_upcoming_product,
     url_update_upcoming_product,
     url_get_upcoming_product,
-    url_get_top_category_by_unit
+    url_get_top_category_by_unit,
+    add_survey_question,
+    update_survey_question
 }

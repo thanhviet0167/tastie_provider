@@ -409,8 +409,21 @@ class ProductModel{
 
     static async addSurveyQuestion(data){
         try {
-            const {provider_id, upcoming_product_id, question, start_at, expire_at} = data
-            let sqlAddSurveyQuestion = `CALL Add_Survey_Question(${provider_id}, ${upcoming_product_id}, '${question}', '${start_at}', '${expire_at}');`
+            const {upcoming_product_id, question, start_at, expire_at, choice} = data
+            let sqlAddSurveyQuestion = `CALL Add_Survey_Question(${upcoming_product_id}, '${question}', '${start_at}', '${expire_at}', '${choice}');`
+
+            await host.execute(sqlAddSurveyQuestion)
+            return true
+        } catch (error) {
+            console.log(error)
+            return false
+        }
+    }
+
+    static async updateSurveyQuestion(data){
+        try {
+            const {upcoming_product_id, question, start_at, expire_at, choice} = data
+            let sqlAddSurveyQuestion = `CALL Update_Survey_Question_Choice(${upcoming_product_id}, '${question}', '${start_at}', '${expire_at}', '${choice}');`
 
             await host.execute(sqlAddSurveyQuestion)
             return true
@@ -421,18 +434,20 @@ class ProductModel{
     }
 
 
-    static async addSurveyChoices(data){
-        try {
-            const {survey_id, choice} = data
-            let sqlAddSurveyChoices = `CALL Add_Survey_Choices(${survey_id}, '${choice}')`
-            await host.execute(sqlAddSurveyChoices)
 
-            return true
-        } catch (error) {
-            console.log(error)
-            return false
-        }
-    }
+
+    // static async addSurveyChoices(data){
+    //     try {
+    //         const {survey_id, choice} = data
+    //         let sqlAddSurveyChoices = `CALL Add_Survey_Choices(${survey_id}, '${choice}')`
+    //         await host.execute(sqlAddSurveyChoices)
+
+    //         return true
+    //     } catch (error) {
+    //         console.log(error)
+    //         return false
+    //     }
+    // }
 
     static async getUpComingProduct(provider_id){
         try {

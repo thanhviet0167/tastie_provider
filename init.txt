@@ -465,3 +465,23 @@ INSERT INTO `Product` (`product_id`,`provider_id`,`product_name`,`product_status
     "end_month" : 6,
     "year" : 2022
 }
+
+// http://localhost:3008/v1/api/provider/dashboard/add-survey-question
+
+{
+    "upcoming_product_id": 1,
+    "question" : "abcsss",
+    "start_at" : "2022-02-02",
+    "expire_at" : "2022-04-02",
+    "choice" : "abc"
+}
+
+
+// http://localhost:3008/v1/api/provider/dashboard/update-survey-question
+{
+    "upcoming_product_id": 1,
+    "question" : "bao nhiêu lâu bán được 1 tỷ gói mè",
+    "start_at" : "2022-02-02",
+    "expire_at" : "2022-04-02",
+    "choice" : "trả lời"
+}
