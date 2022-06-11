@@ -517,7 +517,7 @@ class MerchantModel{
         let sqlGetOperation = `SELECT * FROM Tastie.Operation where provider_id = ${provider_id};`
 
             const [opetations, _] = await host.execute(sqlGetOperation)
-
+           
             let sqlGetStatusProvider = `SELECT status FROM Provider where provider_id = ${provider_id};`
 
             const statusProvider = await host.execute(sqlGetStatusProvider)
@@ -599,32 +599,63 @@ class MerchantModel{
             return operation_time
     }
 
+    static async getOperationTimeByDay(provider_id, day){
+        try {
+           
+       
+            const [opetations, _] = await host.execute(`CALL Get_Operation_Time_By_Day(${provider_id}, '${day}')`)
+           
+            return opetations[0]
+        } catch (error) {
+            
+            console.log(error)
+            return {
+
+            }
+        }
+    }
 
     // Done
     static async getNearByProvider(data){
 
-        const {limit, offset, longitude, latitude} = data
+        const {user_id,limit, offset, longitude, latitude} = data
 
         try {
             
             let sqlGetProvider = `SELECT * FROM Tastie.Provider;`
-            const [list_provider, _] = await host.execute(sqlGetProvider)
-          
-            var _list_provider = [];
+            
+            const [list_all_provider, _] = await host.execute(sqlGetProvider)
+            var _list_provider = []
+            const _list_provider_favorite = await host.execute(`CALL Get_Favorite_Restaurant_By_Customer(${user_id});`)
+            const list_provider_favorite = _list_provider_favorite[0][0]
 
-            //10.763019107348029 106.68250448518744
-
-            // <= 3 : 15k, >3 <=4 18, >4, <=5 20k, >=5, dis-5 = a, a/1000k = le? x 2500
-           
-            for(var i = 0 ; i < list_provider.length; i++){
+            list_all_provider.forEach(p => {
                 var distance = Geolib.getDistance({
                     latitude: latitude, longitude: longitude
-                },{ latitude: parseFloat(list_provider[i]['latitude']), longitude: parseFloat(list_provider[i]['longitude'])})
+                },{ latitude: parseFloat(p['latitude']), longitude: parseFloat(p['longitude'])})
+                p['distance'] = distance
+            })
+            list_all_provider.sort((provider_one, provider_two) => { 
+                
+                if(provider_one.distance > provider_two.distance)
+                {
+                    return 1
+                }
+                if(provider_one.distance < provider_two.distance)
+                {
+                    return -1
+                }
+                return 0
 
-
-              
-
-                if(distance <= 15000){
+            })
+            
+            var list_provider =  list_all_provider.slice( offset - 1  === 0 ? offset-1 : limit*(offset-1), offset*limit <= list_all_provider.length ? offset*limit : offset*limit-1)
+            
+            
+            
+            for(var i = 0 ; i < list_provider.length; i++){
+               
+                if(list_provider[i]['distance'] <= 25000){
                     
                     var index_estimated_space = list_provider[i]['estimated_cooking_time'].indexOf(" ")
 
@@ -632,12 +663,17 @@ class MerchantModel{
               
                     var convert_time = new Date(list_provider[i]['registered_at']).toLocaleString()
 
-                    var delivery_fee = this.delivery_fee(distance)
+                    var delivery_fee = this.delivery_fee(list_provider[i]['distance'])
 
-                    var operation_time = await this.getOperationsTime(list_provider[i]['provider_id'])
+                    const dateNumber = new Date().getDay()
+
+                    var operation_time = await this.getOperationTimeByDay(list_provider[i]['provider_id'], dateNumber-1)
+                    var index_favorite = list_provider_favorite.findIndex(p => {
+                        return p['provider_id'] === list_provider[i]['provider_id']
+                    })
 
                     var newData = {
-                        distance,
+                        distance : list_provider[i]['provider_id'],
                         delivery_fee,
                         provider_id : list_provider[i]['provider_id'],
                         provider_name: list_provider[i]['merchant_name'],
@@ -652,6 +688,7 @@ class MerchantModel{
                         order_totals : list_provider[i]['order_totals'],
                         mean_estimated_cooking_time :(parseInt(convert_estimated[0]) + parseInt(convert_estimated[1])) / 2,
                         registered_at :  convert_time,
+                        isFavorite : index_favorite > -1 ? true : false,
                         operation_time
                     
                     }
@@ -660,27 +697,15 @@ class MerchantModel{
                 
             }
 
-            _list_provider.sort((provider_one, provider_two) => { 
-                
-                if(provider_one.distance > provider_two.distance)
-                {
-                    return 1
-                }
-                if(provider_one.distance < provider_two.distance)
-                {
-                    return -1
-                }
-                return 0
-
-            })
+            
 
            // console.log(_list_provider)
 
-            return _list_provider.slice( offset - 1  === 0 ? offset-1 : limit*(offset-1), offset*limit <= _list_provider.length ? offset*limit : offset*limit-1)
+            return _list_provider
 
         } catch (error) {
             console.log(error)
-            return null
+            return []
         }
     }
 
@@ -724,8 +749,7 @@ class MerchantModel{
 
                     var delivery_fee = this.delivery_fee(distance)
                     
-
-                    var operation_time = await this.getOperationsTime(list_provider[i]['provider_id'])
+                    
 
                     
 
@@ -751,7 +775,6 @@ class MerchantModel{
                         order_totals : list_provider[i]['order_totals'],
                         mean_estimated_cooking_time :(parseInt(convert_estimated[0]) + parseInt(convert_estimated[1])) / 2,
                         registered_at :  convert_time,
-                        operation_time,
                         isFavorite : index_favorite > -1 ? true : false
                     
                     }
@@ -901,7 +924,11 @@ class MerchantModel{
         
 
             var new_respone = response.slice( offset - 1  === 0 ? offset-1 : limit*(offset-1), offset*limit <= response.length ? offset*limit : offset*limit-1)
-
+            for(var i = 0 ; i < response.length ; i++){
+                const dateNumber = new Date().getDay()
+                var operation_time = await this.getOperationTimeByDay(response[i]['provider_id'], dateNumber-1)
+                response[i]['operation_time'] = operation_time
+            }
             return new_respone
          
 

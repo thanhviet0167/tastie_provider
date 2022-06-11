@@ -451,8 +451,40 @@ class ProductModel{
 
     static async getUpComingProduct(provider_id){
         try {
-            const [list_upcoming_product, _] = await host.execute(`SELECT * FROM Tastie.UpcomingProduct WHERE provider_id = ${provider_id}`)
-            return list_upcoming_product
+            const [_list_upcoming_product, _] = await host.execute(`CALL Get_Upcoming_Products_By_Provider(${provider_id})`)
+            var list_upcoming_product = _list_upcoming_product[0]
+            var response = []
+            for(var i = 0; i < list_upcoming_product.length ; i++){
+                let index_survey = response.findIndex(up => {
+                    return up['survey_id'] === list_upcoming_product[i]['survey_id'] && up['upcoming_product_id'] === list_upcoming_product[i]['upcoming_product_id']
+                })
+                if(index_survey < 0){
+                    let newSurvey = {
+                        upcoming_product_id: list_upcoming_product[i]['upcoming_product_id'],
+                        provider_id: list_upcoming_product[i]['provider_id'],
+                        product_name: list_upcoming_product[i]['product_name'],
+                        product_description: list_upcoming_product[i]['product_description'],
+                        estimated_price: list_upcoming_product[i]['estimated_price'],
+                        product_image: list_upcoming_product[i]['product_image'],
+                        update_at: list_upcoming_product[i]['update_at'],
+                        survey_id: list_upcoming_product[i]['survey_id'],
+                        question: list_upcoming_product[i]['question'],
+                        choice:[ 
+                            {
+                                content : list_upcoming_product[i]['choice']
+                            }
+                        ]
+                    }
+                    response.push(newSurvey)
+                }
+                else{
+                    let newChoice = {
+                        content : list_upcoming_product[i]['choice']
+                    }
+                    response[index_survey]['choice'].push(newChoice)
+                }
+            }
+            return response
         } catch (error) {
             return []
         }
