@@ -673,7 +673,7 @@ class MerchantModel{
                     })
 
                     var newData = {
-                        distance : list_provider[i]['provider_id'],
+                        distance : list_provider[i]['distance'],
                         delivery_fee,
                         provider_id : list_provider[i]['provider_id'],
                         provider_name: list_provider[i]['merchant_name'],
