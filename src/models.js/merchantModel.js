@@ -667,7 +667,7 @@ class MerchantModel{
 
                     const dateNumber = new Date().getDay()
 
-                    var operation_time = await this.getOperationTimeByDay(list_provider[i]['provider_id'], dateNumber-1)
+                    var operation_time = await this.getOperationTimeByDay(list_provider[i]['provider_id'], dateNumber+1)
                     var index_favorite = list_provider_favorite.findIndex(p => {
                         return p['provider_id'] === list_provider[i]['provider_id']
                     })
@@ -926,7 +926,7 @@ class MerchantModel{
             var new_respone = response.slice( offset - 1  === 0 ? offset-1 : limit*(offset-1), offset*limit <= response.length ? offset*limit : offset*limit-1)
             for(var i = 0 ; i < response.length ; i++){
                 const dateNumber = new Date().getDay()
-                var operation_time = await this.getOperationTimeByDay(response[i]['provider_id'], dateNumber-1)
+                var operation_time = await this.getOperationTimeByDay(response[i]['provider_id'], dateNumber+1)
                 response[i]['operation_time'] = operation_time
             }
             return new_respone
