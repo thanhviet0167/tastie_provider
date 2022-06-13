@@ -982,7 +982,18 @@ class MerchantModel{
 
                 const _list_order = result[0]
                 console.log(_list_order.length)
-                _list_order.reverse()
+
+                _list_order.sort((od_1, od_2) => {
+                    let timeValueOd1 = new Date(od_1['update_at']).valueOf()
+                    let timeValueOd2 = new Date(od_2['update_at']).valueOf()
+                    if(timeValueOd1 < timeValueOd2 ){
+                        return 1
+                    }
+                    if(timeValueOd1 > timeValueOd2 ){
+                        return -1
+                    }
+                    return 0
+                })
 
                 return _list_order.slice( offset - 1  === 0 ? offset-1 : limit*(offset-1), offset*limit <= _list_order.length ? offset*limit : offset*limit-1)
 
