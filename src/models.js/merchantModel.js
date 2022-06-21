@@ -346,8 +346,7 @@ class MerchantModel{
             CALL ProviderUpdate_Form0(${user_id}, '${registered_at}', '${provider_update_at}');
             `
             await host.execute(sqlUpdate)
-            const [result, _] = await host.execute(`SELECT * FROM provider where user_id = ${user_id}`)
-            console.log(result)
+            const [result, _] = await host.execute(`SELECT * FROM Tastie.Provider where user_id = ${user_id}`)
             return result
         } catch (error) {
             console.log(error)
