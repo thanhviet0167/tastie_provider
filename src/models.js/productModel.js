@@ -453,6 +453,7 @@ class ProductModel{
         try {
             const [_list_upcoming_product, _] = await host.execute(`CALL Get_Upcoming_Products_By_Provider(${provider_id})`)
             var list_upcoming_product = _list_upcoming_product[0]
+    
             var response = []
             for(var i = 0; i < list_upcoming_product.length ; i++){
                 let index_survey = response.findIndex(up => {
@@ -484,6 +485,12 @@ class ProductModel{
                     response[index_survey]['choice'].push(newChoice)
                 }
             }
+
+            for(var i = 0; i < response.length; i++){
+                const statistic = await host.execute(`CALL Get_Statistical_Survey(${response[i]['upcoming_product_id']})`)
+                response[i]['statistic'] = statistic[0][0]
+            }
+        
             return response
         } catch (error) {
             return []
